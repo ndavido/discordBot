@@ -64,7 +64,7 @@ async def on_message(message):
       elif len(list) < 2:
         await message.channel.send('Exterminate! Too few parameters!')
       else:
-        # sum : int = int(list[0]) + int(list[1])
+        sum : int = int(list[0]) + int(list[1])
         await message.channel.send(f'Sum of numbers is: {sum}')
 
     # IF MESSAGE STARTS WITH : HELP
