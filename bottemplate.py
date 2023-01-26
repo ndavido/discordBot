@@ -1,8 +1,9 @@
 import sys
-# Your bot token here
-discordToken = "MTA2NTkxNjUzNDE3MTYzOTg3OQ.GL-kbw.Ace6SxxeHRhnnN-qwexqMxd5vg_X_ekNIYxFTY"
-# Your bot name here
-name = "csm101_dawid_nalepa"
+from .config import config
+# Insert your bot token here
+discordToken = config.get("bot_token")
+# Insert your bot name here
+name = config.get("bot_name")
 
 # Check if Token is empty
 if (discordToken == ""): sys.exit("ERROR: Please set the discord token.")
@@ -31,13 +32,26 @@ async def on_message(message):
   if message.content.startswith(name):
     print(f"{message.author} says: {message.content}")
 
+    msg = message.content[len(name):].strip()
+    print(f"msg contains: {msg}")
+    list = msg.split(" ")
+    print(list)
+    # if len(msg)
+
     if message.content.startswith(f'{name} hello'):
       await message.channel.send('Hello! I am ALIVE?')
 
-    if message.content.startswith(f'{name} random'):
-      await message.channel.send('Random is yet to be implemented!')
+    elif message.content.startswith(f'{name} random'):
+      await message.channel.send('Random numbers _ & _')
 
     elif message.content.startswith(f'{name} sum'):
-      await message.channel.send('Sum is yet to be implemented!')
+      await message.channel.send('Sum of numbers is: _')
+
+    elif message.content.startswith(f'{name} help'):
+      await message.channel.send('Here are some of the commands you can use\n' +
+                                 '=========================================\n' +
+                                 '-> Random\n' +
+                                 '-> Sum' +
+                                 '-> ')
 
 client.run(discordToken)
