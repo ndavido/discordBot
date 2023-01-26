@@ -1,5 +1,5 @@
 import sys
-from .config import config
+from config import config
 # Insert your bot token here
 discordToken = config.get("bot_token")
 # Insert your bot name here
@@ -36,22 +36,45 @@ async def on_message(message):
     print(f"msg contains: {msg}")
     list = msg.split(" ")
     print(list)
-    # if len(msg)
 
+    # del list[0]
+    # sum : int = int(list[0]) + int(list[1])
+    # print(sum)
+
+    # IF MESSAGE STARTS WITH : HELLO
     if message.content.startswith(f'{name} hello'):
       await message.channel.send('Hello! I am ALIVE?')
 
+    # IF MESSAGE STARTS WITH : RANDOM 
     elif message.content.startswith(f'{name} random'):
-      await message.channel.send('Random numbers _ & _')
+      # if list contains more than 3 parameters
+      if len(list) > 3:
+        await message.channel.send('Exterminate! Too many parameters!')
+      # if list contains less than 3 parameters
+      elif len(list) < 3:
+        await message.channel.send('Exterminate! Too many parameters!')
+      # otherwise print the numbers
+      else:
+        await message.channel.send('Random numbers _ & _')
 
+    # IF MESSAGE STARTS WITH : SUM
     elif message.content.startswith(f'{name} sum'):
-      await message.channel.send('Sum of numbers is: _')
+      if len(list) > 3:
+        await message.channel.send('Exterminate! Too many parameters!')
+      elif len(list) < 2:
+        await message.channel.send('Exterminate! Too few parameters!')
+      else:
+        # sum : int = int(list[0]) + int(list[1])
+        await message.channel.send(f'Sum of numbers is: {sum}')
 
+    # IF MESSAGE STARTS WITH : HELP
     elif message.content.startswith(f'{name} help'):
       await message.channel.send('Here are some of the commands you can use\n' +
                                  '=========================================\n' +
                                  '-> Random\n' +
-                                 '-> Sum' +
+                                 '  ->\n' +
+                                 '-> Sum\n' +
+                                 '  ->\n' +
                                  '-> ')
 
 client.run(discordToken)
