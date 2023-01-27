@@ -37,9 +37,8 @@ async def on_message(message):
     list = msg.split(" ")
     print(list)
 
-    # del list[0]
-    # sum : int = int(list[0]) + int(list[1])
-    # print(sum)
+    # DELETE THE PHRASE KEEPING ONLY PARAMATERS IN THE LIST
+    del list[0]
 
     # IF MESSAGE STARTS WITH : HELLO
     if message.content.startswith(f'{name} hello'):
@@ -59,10 +58,13 @@ async def on_message(message):
 
     # IF MESSAGE STARTS WITH : SUM
     elif message.content.startswith(f'{name} sum'):
-      if len(list) > 3:
+      # if list contains more than 3 parameters
+      if len(list) > 2:
         await message.channel.send('Exterminate! Too many parameters!')
+      # if list contains less than 3 parameters
       elif len(list) < 2:
         await message.channel.send('Exterminate! Too few parameters!')
+      # otherwise print the sum
       else:
         sum : int = int(list[0]) + int(list[1])
         await message.channel.send(f'Sum of numbers is: {sum}')
