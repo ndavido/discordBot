@@ -46,6 +46,9 @@ async def on_message(message):
     print(f"msg contains: {msg}")
     list = msg.split(" ")
 
+    # DELETE THE PHRASE KEEPING ONLY PARAMATERS IN THE LIST
+    command = list[0]
+    del list[0]
     print(list)
 
     # IF MESSAGE STARTS WITH : HELLO
@@ -63,9 +66,9 @@ async def on_message(message):
       # Otherwise print the numbers
       else:
         # Convert Strings to Integers
-        min : int = int(list[1])
-        max : int = int(list[2])
-        quantity : int = int(list[3])
+        min : int = int(list[0])
+        max : int = int(list[1])
+        quantity : int = int(list[2])
         await message.channel.send(f'Random numbers {generate_random_numbers(min,max,quantity)}')
 
     # IF MESSAGE STARTS WITH : SUM
@@ -79,7 +82,7 @@ async def on_message(message):
       # Otherwise print the sum
       else:
         # Convert Strings to Integers
-        sum : int = int(list[1]) + int(list[2])
+        sum : int = int(list[0]) + int(list[1])
         await message.channel.send(f'Sum of numbers is: {sum}')
 
     # IF MESSAGE STARTS WITH : HELP
@@ -96,6 +99,6 @@ async def on_message(message):
                                  '    **->** When asking the chatbot sum <number1> <number2> it should sum up the numbers.\n' +
                                  '    **->** So, for example, sum 160 20  should return back 180.\n\n' +
                                  '**-> hello**\n' +
-                                 '    **->** Be nice to the bot, say hello :grin:')
+                                 '  **->** Be nice to the bot, say hello :grin:')
 
 client.run(discordToken)
