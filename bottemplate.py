@@ -1,5 +1,15 @@
+#
+# Name : Dawid Nalepa
+# ID : 2209302
+#
+import random
 import sys
 from config import config
+
+# Define the random number generator
+def generate_random_numbers(minNumber, maxNumber, howMany):
+  return [random.randint(minNumber, maxNumber) for _ in range(howMany)]
+
 # Insert your bot token here
 discordToken = config.get("bot_token")
 # Insert your bot name here
@@ -35,10 +45,10 @@ async def on_message(message):
     msg = message.content[len(name):].strip()
     print(f"msg contains: {msg}")
     list = msg.split(" ")
-    print(list)
 
     # DELETE THE PHRASE KEEPING ONLY PARAMATERS IN THE LIST
     del list[0]
+    print(list)
 
     # IF MESSAGE STARTS WITH : HELLO
     if message.content.startswith(f'{name} hello'):
@@ -46,26 +56,31 @@ async def on_message(message):
 
     # IF MESSAGE STARTS WITH : RANDOM 
     elif message.content.startswith(f'{name} random'):
-      # if list contains more than 3 parameters
+      # If list contains more than 3 parameters
       if len(list) > 3:
         await message.channel.send('Exterminate! Too many parameters!')
-      # if list contains less than 3 parameters
+      # If list contains less than 3 parameters
       elif len(list) < 3:
         await message.channel.send('Exterminate! Too many parameters!')
-      # otherwise print the numbers
+      # Otherwise print the numbers
       else:
-        await message.channel.send('Random numbers _ & _')
+        # Convert Strings to Integers
+        min : int = int(list[0])
+        max : int = int(list[1])
+        quantity : int = int(list[2])
+        await message.channel.send(f'Random numbers {generate_random_numbers(min,max,quantity)}')
 
     # IF MESSAGE STARTS WITH : SUM
     elif message.content.startswith(f'{name} sum'):
-      # if list contains more than 3 parameters
+      # If list contains more than 3 parameters
       if len(list) > 2:
         await message.channel.send('Exterminate! Too many parameters!')
-      # if list contains less than 3 parameters
+      # If list contains less than 3 parameters
       elif len(list) < 2:
         await message.channel.send('Exterminate! Too few parameters!')
-      # otherwise print the sum
+      # Otherwise print the sum
       else:
+        # Convert Strings to Integers
         sum : int = int(list[0]) + int(list[1])
         await message.channel.send(f'Sum of numbers is: {sum}')
 
