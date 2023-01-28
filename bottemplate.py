@@ -65,11 +65,14 @@ async def on_message(message):
         await message.channel.send('Exterminate! Too many parameters!')
       # Otherwise print the numbers
       else:
+        if not list[0].isdigit() or not list[1].isdigit() or not list[3].isdigit():
+          await message.channel.send('Exterminate! Only digits are allowed!')
         # Convert Strings to Integers
-        min : int = int(list[0])
-        max : int = int(list[1])
-        quantity : int = int(list[2])
-        await message.channel.send(f'Random numbers {generate_random_numbers(min,max,quantity)}')
+        else:
+          min : int = int(list[0])
+          max : int = int(list[1])
+          quantity : int = int(list[2])
+          await message.channel.send(f'Random numbers {generate_random_numbers(min,max,quantity)}')
 
     # IF MESSAGE STARTS WITH : SUM
     elif message.content.startswith(f'{name} sum'):
@@ -81,9 +84,13 @@ async def on_message(message):
         await message.channel.send('Exterminate! Too few parameters!')
       # Otherwise print the sum
       else:
+        # Checks if the list contains numbers or strings
+        if not list[0].isdigit() or not list[1].isdigit():
+          await message.channel.send('Exterminate! Only digits are allowed!')
         # Convert Strings to Integers
-        sum : int = int(list[0]) + int(list[1])
-        await message.channel.send(f'Sum of numbers is: {sum}')
+        else:
+          sum : int = int(list[0]) + int(list[1])
+          await message.channel.send(f'Sum of numbers is: {sum}')
 
     # IF MESSAGE STARTS WITH : HELP
     elif message.content.startswith(f'{name} help'):
