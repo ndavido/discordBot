@@ -59,34 +59,37 @@ async def on_message(message):
     elif message.content.startswith(f'{name} random'):
       # If list contains more than 3 parameters
       if len(list) > 3:
-        await message.channel.send('Exterminate! Too many parameters!')
+        await message.channel.send('**Exterminate!** Too many parameters!')
       # If list contains less than 3 parameters
       elif len(list) < 3:
-        await message.channel.send('Exterminate! Too many parameters!')
+        await message.channel.send('**Exterminate!** Too many parameters!')
       # Otherwise print the numbers
       else:
         if not list[0].isdigit() or not list[1].isdigit() or not list[2].isdigit():
-          await message.channel.send('Exterminate! Only digits are allowed!')
+          await message.channel.send('**Exterminate!** Only digits are allowed!')
         # Convert Strings to Integers
         else:
           min : int = int(list[0])
           max : int = int(list[1])
           quantity : int = int(list[2])
-          await message.channel.send(f'Random numbers {generate_random_numbers(min,max,quantity)}')
+          random_numbers = generate_random_numbers(min,max,quantity)
+          random_numbers = [str(num) for num in random_numbers]
+          # Seperate each number with '&' in the output
+          await message.channel.send(f'Random numbers: {" **&** ".join(random_numbers)}')
 
     # IF MESSAGE STARTS WITH : SUM
     elif message.content.startswith(f'{name} sum'):
       # If list contains more than 3 parameters
       if len(list) > 2:
-        await message.channel.send('Exterminate! Too many parameters!')
+        await message.channel.send('**Exterminate!** Too many parameters!')
       # If list contains less than 3 parameters
       elif len(list) < 2:
-        await message.channel.send('Exterminate! Too few parameters!')
+        await message.channel.send('**Exterminate!** Too few parameters!')
       # Otherwise print the sum
       else:
         # Checks if the list contains numbers or strings
         if not list[0].isdigit() or not list[1].isdigit():
-          await message.channel.send('Exterminate! Only digits are allowed!')
+          await message.channel.send('**Exterminate!** Only digits are allowed!')
         # Convert Strings to Integers
         else:
           sum : int = int(list[0]) + int(list[1])
@@ -106,6 +109,6 @@ async def on_message(message):
                                  '    **->** When asking the chatbot sum <number1> <number2> it should sum up the numbers.\n' +
                                  '    **->** So, for example, sum 160 20  should return back 180.\n\n' +
                                  '**-> hello**\n' +
-                                 '  **->** Be nice to the bot, say hello :grin:')
+                                 '    **->** Be nice to the bot, say hello :grin:')
 
 client.run(discordToken)
