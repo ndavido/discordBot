@@ -65,7 +65,7 @@ async def on_message(message):
         await message.channel.send('Exterminate! Too many parameters!')
       # Otherwise print the numbers
       else:
-        if not list[0].isdigit() or not list[1].isdigit() or not list[3].isdigit():
+        if not list[0].isdigit() or not list[1].isdigit() or not list[2].isdigit():
           await message.channel.send('Exterminate! Only digits are allowed!')
         # Convert Strings to Integers
         else:
