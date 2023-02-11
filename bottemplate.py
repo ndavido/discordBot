@@ -174,11 +174,10 @@ async def on_message(message):
           else:
             await message.channel.send("**No TODO items**")
 
-
     #
     # IF MESSAGE STARTS WITH : TODOREMOVE
     #
-    elif message.content.startswith(f'{name} todoremove'):   
+    elif message.content.startswith(f'{name} removetodo'):   
       todoNum = int(userCommandList[0])
       if not userCommandList[0].isdigit():
         await message.channel.send('**Exterminate!** Only digits are allowed!')
