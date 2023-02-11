@@ -33,6 +33,7 @@ client = discord.Client(intents=intents)
 termDict = {}
 # Todo dictionary
 todoDict = {}
+key = 1
 
 
 @client.event
@@ -116,9 +117,8 @@ async def on_message(message):
     # IF MESSAGE STARTS WITH : SET
     #
     elif message.content.startswith(f'{name} set'):
-      # Checks the length of the list
-      # if len(userCommandList) == 2: # List contains the term and definition
-        # If term exists Update the definition in dictionary
+      
+      # If term exists Update the definition in dictionary
       if term in termDict:
         termDict[term] = defenition
         await message.channel.send(f'The **definition** has been **updated**')
@@ -156,16 +156,36 @@ async def on_message(message):
     # IF MESSAGE STARTS WITH : TODO
     #
     elif message.content.startswith(f'{name} todo'):
-      if len(userCommandList) == 1:
-        print()
-      elif len(userCommandList) == 0:
-        print()
+      if len(todoDict) >= 5:
+        await message.channel.send(f'Too **many** items!')
+      else:
+        # Checks the length of the list to determine whether to add a new item or not
+        if len(userCommandList) > 0:
+          todoDict[key] = todoMsg
+          key += 1
+          await message.channel.send(f"The **TODO item** has been **added**")
+        elif len(userCommandList) == 0:
+          if todoDict:
+            todoItems = [f"**{num}:** {todo}" for num, todo in todoDict.items()]
+            todoItems = "\n".join(todoItems)
+            await message.channel.send(f"**TODO items**\n**================**\n{todoItems}")
+          else:
+            await message.channel.send("**No TODO items**")
 
     #
     # IF MESSAGE STARTS WITH : TODOREMOVE
     #
-    elif message.content.startswith(f'{name} todo'):
-      print()
+    elif message.content.startswith(f'{name} todoremove'):   
+      todoNum = int(userCommandList[0])
+      if not userCommandList[0].isdigit():
+        await message.channel.send('**Exterminate!** Only digits are allowed!')
+      elif todoNum < 1 or todoNum > 5:
+        await message.channel.send('**Exterminate!** Please select a number betwenn 1-5')
+      elif todoNum in todoDict:
+        todoItem = todoDict.pop(todoNum)
+        await message.channel.send(f"**TODO item **{todoItem}** has been removed**")
+      else:
+        await message.channel.send("**No item** with this number**")
 
     #
     # IF MESSAGE STARTS WITH : HELP
@@ -174,6 +194,8 @@ async def on_message(message):
       await message.channel.send('''
 **Here are some of the commands you can use** 
 **=========================================** 
+**-> hello**
+    **->** Be nice to the bot, say hello :grin:\n
 **-> random**
     **->** When asking the chatbot random <minNumber> <maxNumber> <howMany>, 
      it should give a random number between the two numbers and how many random 
@@ -183,8 +205,7 @@ async def on_message(message):
 **-> sum**
     **->** When asking the chatbot sum <number1> <number2> it should sum up the numbers.
     **->** So, for example, sum 160 20  should return back 180.\n
-**-> hello**
-    **->** Be nice to the bot, say hello :grin:
+
           ''')
 
 client.run(discordToken)
