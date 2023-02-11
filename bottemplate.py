@@ -65,7 +65,6 @@ async def on_message(message):
     print(todoMsg)
     print(term)
     print(defenition)
-    key = 1
 
     #
     # IF MESSAGE STARTS WITH : HELLO
@@ -165,8 +164,7 @@ async def on_message(message):
       else:
         # Checks the length of the list to determine whether to add a new item or not
         if len(userCommandList) > 0:
-          todoDict[key] = todoMsg
-          key += 1
+          todoDict[len(todoDict) + 1] = todoMsg
           await message.channel.send(f"The **TODO item** has been **added**")
         elif len(userCommandList) == 0:
           if todoDict:
@@ -175,6 +173,7 @@ async def on_message(message):
             await message.channel.send(f"**TODO items**\n**================**\n{todoItems}")
           else:
             await message.channel.send("**No TODO items**")
+
 
     #
     # IF MESSAGE STARTS WITH : TODOREMOVE
