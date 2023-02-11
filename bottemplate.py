@@ -62,7 +62,7 @@ async def on_message(message):
         await message.channel.send('**Exterminate!** Too many parameters!')
       # If list contains less than 3 parameters
       elif len(list) < 3:
-        await message.channel.send('**Exterminate!** Too many parameters!')
+        await message.channel.send('**Exterminate!** Too few parameters!')
       # Otherwise print the numbers
       else:
         if not list[0].isdigit() or not list[1].isdigit() or not list[2].isdigit():
