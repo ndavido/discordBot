@@ -200,14 +200,32 @@ async def on_message(message):
     **->** Be nice to the bot, say hello :grin:\n
 **-> random**
     **->** When asking the chatbot random <minNumber> <maxNumber> <howMany>, 
-     it should give a random number between the two numbers and how many random 
-     numbers it generates.
+           it should give a random number between the two numbers and how many random 
+           numbers it generates.
     **->** So, for example, random 0 20 2 gives back 2 random numbers. The output should 
-     be something like this: Random numbers 13 & 4.\n
+           be something like this: Random numbers 13 & 4.\n
 **-> sum**
     **->** When asking the chatbot sum <number1> <number2> it should sum up the numbers.
     **->** So, for example, sum 160 20  should return back 180.\n
-
+**-> todo**
+    **->** When asking the chatbot todo <todo item> it will add the given todo item to the dictionary 
+           and add numbering to the item.
+    **->** When asking your bot todo it should give back all todo items. By default, the todo list is empty, 
+           it should print out "No todo items".
+    **->**If there some todo items exist, below is an example of how they could be visible
+              **1:** go to grocery stor    
+              **2:** buy milk
+    **->** The chatbot is limited to 5 todo items. If you try to add more than 5 items, it will tell you "Too many items!" 
+           and not add the new item.\n
+**-> removetodo**
+    **->** When asking the chatbot removetodo <number> it should remove the todo item with the given number. For example removetodo 3. 
+           If the item with the given number does not exist, it should print out "No item with this number"\n
+**-> set**
+    **->** When asking the chatbot set <term> <definition>, it will save the term into a dictionary. If the same term already exists, 
+           it will replace the definition. So, for example, set lunchlist_skene https://fi.jamix.cloud/apps/menu/?anro=93077&k=46&mt=37
+    **->** When asking the chatbot get <term> it will give you back the definition for the term. If the term does not exist, it will 
+           give you back "I do not know this"
+    **->** When calling your bot with just set <term> it should remove the item from the dictionary if it exists.
           ''')
 
 client.run(discordToken)
