@@ -130,20 +130,19 @@ async def on_message(message):
     #
     elif message.content.startswith(f'{name} help'):
       await message.channel.send('''
-          **Here are some of the commands you can use** 
-          **=========================================** 
-          **-> random**
-              **->** When asking the chatbot random <minNumber> <maxNumber> <howMany>, 
-               it should give a random number between the two numbers and how many random 
-               numbers it generates.
-              **->** So, for example, random 0 20 2 gives back 2 random numbers. The output should 
-               be something like this: Random numbers 13 & 4.\n
-          **-> sum**
-              **->** When asking the chatbot sum <number1> <number2> it should sum up the numbers.
-              **->** So, for example, sum 160 20  should return back 180.\n
-          **-> hello**
-              **->** Be nice to the bot, say hello :grin:
-
+**Here are some of the commands you can use** 
+**=========================================** 
+**-> random**
+    **->** When asking the chatbot random <minNumber> <maxNumber> <howMany>, 
+     it should give a random number between the two numbers and how many random 
+     numbers it generates.
+    **->** So, for example, random 0 20 2 gives back 2 random numbers. The output should 
+     be something like this: Random numbers 13 & 4.\n
+**-> sum**
+    **->** When asking the chatbot sum <number1> <number2> it should sum up the numbers.
+    **->** So, for example, sum 160 20  should return back 180.\n
+**-> hello**
+    **->** Be nice to the bot, say hello :grin:
           ''')
 
 client.run(discordToken)
