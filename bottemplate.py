@@ -33,8 +33,6 @@ client = discord.Client(intents=intents)
 termDict = {}
 # Todo dictionary
 todoDict = {}
-key = 1
-
 
 @client.event
 async def on_ready():
@@ -57,11 +55,17 @@ async def on_message(message):
     unwantedString, *userCommandList = msg.split()
     todoMsg = " ".join(userCommandList)
     # Seperating todoMsg to work for term defention
-    term, *defenitionList = todoMsg.split()
+    if todoMsg:
+      term, *defenitionList = todoMsg.split()
+    else:
+      term = None
+      defenitionList = []
+      
     defenition = " ".join(defenitionList)
     print(todoMsg)
     print(term)
     print(defenition)
+    key = 1
 
     #
     # IF MESSAGE STARTS WITH : HELLO
