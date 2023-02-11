@@ -51,12 +51,12 @@ async def on_message(message):
 
     msg = message.content[len(name):].strip()
     print(f"msg contains: {msg}")
-    list = msg.split(" ")
+    userCommandList = msg.split(" ")
 
     # DELETE THE PHRASE KEEPING ONLY PARAMATERS IN THE LIST
-    command = list[0]
-    del list[0]
-    print(list)
+    command = userCommandList[0]
+    del userCommandList[0]
+    print(userCommandList)
 
     #
     # IF MESSAGE STARTS WITH : HELLO
@@ -69,20 +69,20 @@ async def on_message(message):
     #
     elif message.content.startswith(f'{name} random'):
       # If list contains more than 3 parameters
-      if len(list) > 3:
+      if len(userCommandList) > 3:
         await message.channel.send('**Exterminate!** Too many parameters!')
       # If list contains less than 3 parameters
-      elif len(list) < 3:
+      elif len(userCommandList) < 3:
         await message.channel.send('**Exterminate!** Too few parameters!')
       # Otherwise print the numbers
       else:
-        if not list[0].isdigit() or not list[1].isdigit() or not list[2].isdigit():
+        if not userCommandList[0].isdigit() or not userCommandList[1].isdigit() or not userCommandList[2].isdigit():
           await message.channel.send('**Exterminate!** Only digits are allowed!')
         # Convert Strings to Integers
         else:
-          min : int = int(list[0])
-          max : int = int(list[1])
-          quantity : int = int(list[2])
+          min : int = int(userCommandList[0])
+          max : int = int(userCommandList[1])
+          quantity : int = int(userCommandList[2])
           random_numbers = generate_random_numbers(min,max,quantity)
           random_numbers = [str(num) for num in random_numbers]
           # Seperate each number with '&' in the output
@@ -93,19 +93,19 @@ async def on_message(message):
     #
     elif message.content.startswith(f'{name} sum'):
       # If list contains more than 2 parameters
-      if len(list) > 2:
+      if len(userCommandList) > 2:
         await message.channel.send('**Exterminate!** Too many parameters!')
       # If list contains less than 2 parameters
-      elif len(list) < 2:
+      elif len(userCommandList) < 2:
         await message.channel.send('**Exterminate!** Too few parameters!')
       # Otherwise print the sum
       else:
         # Checks if the list contains numbers or strings
-        if not list[0].isdigit() or not list[1].isdigit():
+        if not userCommandList[0].isdigit() or not userCommandList[1].isdigit():
           await message.channel.send('**Exterminate!** Only digits are allowed!')
         # Convert Strings to Integers
         else:
-          sum : int = int(list[0]) + int(list[1])
+          sum : int = int(userCommandList[0]) + int(userCommandList[1])
           await message.channel.send(f'Sum of numbers is: {sum}')
 
     #
@@ -113,13 +113,18 @@ async def on_message(message):
     #
     elif message.content.startswith(f'{name} set'):
       # Checks the length of the list
-      if len(list) == 2: # List contains the term and definition
+      if len(userCommandList) == 2: # List contains the term and definition
         # If term exists Update the definition in dictionary
-
+        if userCommandList[0] in termDict:
+          termDict[userCommandList[0]] = userCommandList[1]
+          await message.channel.send(f'The **definition** has been **updated**')
         # Add term and definition to dictionary
-        print()
+        elif userCommandList[0] not in termDict:
+          termDict[userCommandList[0]] = userCommandList[1]
+
         
-      elif len(list) == 1: # List only contains the term
+        
+      elif len(userCommandList) == 1: # List only contains the term
         # Delete the term and definition from dictionary
         print()
 
