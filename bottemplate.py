@@ -51,11 +51,15 @@ async def on_message(message):
     del list[0]
     print(list)
 
+    #
     # IF MESSAGE STARTS WITH : HELLO
+    #
     if message.content.startswith(f'{name} hello'):
       await message.channel.send('Hello! I am ALIVE?')
 
+    #
     # IF MESSAGE STARTS WITH : RANDOM 
+    #
     elif message.content.startswith(f'{name} random'):
       # If list contains more than 3 parameters
       if len(list) > 3:
@@ -77,7 +81,9 @@ async def on_message(message):
           # Seperate each number with '&' in the output
           await message.channel.send(f'Random numbers: {" **&** ".join(random_numbers)}')
 
+    #
     # IF MESSAGE STARTS WITH : SUM
+    #
     elif message.content.startswith(f'{name} sum'):
       # If list contains more than 3 parameters
       if len(list) > 2:
@@ -95,7 +101,33 @@ async def on_message(message):
           sum : int = int(list[0]) + int(list[1])
           await message.channel.send(f'Sum of numbers is: {sum}')
 
+    #
+    # IF MESSAGE STARTS WITH : SET
+    #
+    elif message.content.startswith(f'{name} set'):
+      print()
+
+    #
+    # IF MESSAGE STARTS WITH : GET
+    #
+    elif message.content.startswith(f'{name} get'):
+      print()
+
+    #
+    # IF MESSAGE STARTS WITH : TODO
+    #
+    elif message.content.startswith(f'{name} todo'):
+      print()
+
+    #
+    # IF MESSAGE STARTS WITH : TODOREMOVE
+    #
+    elif message.content.startswith(f'{name} todo'):
+      print()
+
+    #
     # IF MESSAGE STARTS WITH : HELP
+    #
     elif message.content.startswith(f'{name} help'):
       await message.channel.send('''
           **Here are some of the commands you can use** 
@@ -111,7 +143,7 @@ async def on_message(message):
               **->** So, for example, sum 160 20  should return back 180.\n
           **-> hello**
               **->** Be nice to the bot, say hello :grin:
-              
+
           ''')
 
 client.run(discordToken)
