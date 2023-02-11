@@ -28,6 +28,13 @@ intents.message_content = True
 
 client = discord.Client(intents=intents)
 
+# Initiating dictionaries outside the event
+# Term & Definition dictionry
+termDict = {}
+# Todo dictionary
+todoDict = {}
+
+
 @client.event
 async def on_ready():
   print(f'We have logged in as {client.user}')
@@ -85,10 +92,10 @@ async def on_message(message):
     # IF MESSAGE STARTS WITH : SUM
     #
     elif message.content.startswith(f'{name} sum'):
-      # If list contains more than 3 parameters
+      # If list contains more than 2 parameters
       if len(list) > 2:
         await message.channel.send('**Exterminate!** Too many parameters!')
-      # If list contains less than 3 parameters
+      # If list contains less than 2 parameters
       elif len(list) < 2:
         await message.channel.send('**Exterminate!** Too few parameters!')
       # Otherwise print the sum
@@ -105,7 +112,16 @@ async def on_message(message):
     # IF MESSAGE STARTS WITH : SET
     #
     elif message.content.startswith(f'{name} set'):
-      print()
+      # Checks the length of the list
+      if len(list) == 2: # List contains the term and definition
+        # If term exists Update the definition in dictionary
+
+        # Add term and definition to dictionary
+        print()
+        
+      elif len(list) == 1: # List only contains the term
+        # Delete the term and definition from dictionary
+        print()
 
     #
     # IF MESSAGE STARTS WITH : GET
