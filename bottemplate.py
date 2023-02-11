@@ -121,18 +121,32 @@ async def on_message(message):
         # Add term and definition to dictionary
         elif userCommandList[0] not in termDict:
           termDict[userCommandList[0]] = userCommandList[1]
+          await message.channel.send(f'The **term** and **definition** have been **added**')
 
         
         
       elif len(userCommandList) == 1: # List only contains the term
         # Delete the term and definition from dictionary
+        if userCommandList[0] not in termDict:
+          await message.channel.send(f'Cannot delete the term: **{userCommandList[0]}** as it does **not** exist')
+        else:
+          await message.channel.send(f'Successfully **deleted** the term: **{userCommandList[0]}**')
+          del termDict[userCommandList[0]]
         print()
 
     #
     # IF MESSAGE STARTS WITH : GET
     #
     elif message.content.startswith(f'{name} get'):
-      print()
+      # Checks if the term exists
+      if userCommandList[0] not in termDict: # Term does not exist
+        await message.channel.send(f'I do **not** know this')
+      else: # If term exists, send the message
+        await message.channel.send(f'''
+**{userCommandList[0]}**
+**====================**
+{termDict[userCommandList[0]]}
+        ''')
 
     #
     # IF MESSAGE STARTS WITH : TODO
