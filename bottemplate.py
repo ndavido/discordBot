@@ -121,25 +121,34 @@ async def on_message(message):
     #
     elif message.content.startswith(f'{name} set'):
       
-      # If term exists Update the definition in dictionary
-      if term in termDict:
-        termDict[term] = defenition
-        await message.channel.send(f'The **definition** has been **updated**')
-      # Add term and definition to dictionary
-      elif term not in termDict:
-        termDict[term] = defenition
-        await message.channel.send(f'The **term** and **definition** have been **added**')
+      # # If term exists Update the definition in dictionary
+      # if term in termDict:
+      #   termDict[term] = defenition
+      #   await message.channel.send(f'The **definition** has been **updated**')
+      # # Add term and definition to dictionary
+      # elif term not in termDict:
+      #   termDict[term] = defenition
+      #   await message.channel.send(f'The **term** and **definition** have been **added**')
 
+      print(len(userCommandList))  
         
-        
-      elif len(userCommandList) == 1: # List only contains the term
+      if len(userCommandList) == 1: # List only contains the term
         # Delete the term and definition from dictionary
-        if userCommandList[0] not in termDict: # Term is not in the dictionary
+        if term not in termDict: # Term is not in the dictionary
           await message.channel.send(f'Cannot delete the term: **{term}** as it does **not** exist')
         else: # Term is in the dictionary
           await message.channel.send(f'Successfully **deleted** the term: **{term}**')
           del termDict[term]
-        print()
+      else:
+        # If term exists Update the definition in dictionary
+        if term in termDict:
+          termDict[term] = defenition
+          await message.channel.send(f'The **definition** has been **updated**')
+        # Add term and definition to dictionary
+        elif term not in termDict:
+          termDict[term] = defenition
+          await message.channel.send(f'The **term** and **definition** have been **added**')
+
 
     #
     # IF MESSAGE STARTS WITH : GET
@@ -159,20 +168,20 @@ async def on_message(message):
     # IF MESSAGE STARTS WITH : TODO
     #
     elif message.content.startswith(f'{name} todo'):
-      if len(todoDict) >= 5:
-        await message.channel.send(f'Too **many** items!')
-      else:
-        # Checks the length of the list to determine whether to add a new item or not
-        if len(userCommandList) > 0:
+      # Checks the length of the list to determine whether to add a new item or not
+      if len(userCommandList) > 0:
+        if len(todoDict) >= 5:
+          await message.channel.send(f'Too **many** items!')
+        else:
           todoDict[len(todoDict) + 1] = todoMsg
           await message.channel.send(f"The **TODO item** has been **added**")
-        elif len(userCommandList) == 0:
-          if todoDict:
-            todoItems = [f"**{num}:** {todo}" for num, todo in todoDict.items()]
-            todoItems = "\n".join(todoItems)
-            await message.channel.send(f"**TODO items**\n**================**\n{todoItems}")
-          else:
-            await message.channel.send("**No TODO items**")
+      elif len(userCommandList) == 0:
+        if todoDict:
+          todoItems = [f"**{num}:** {todo}" for num, todo in todoDict.items()]
+          todoItems = "\n".join(todoItems)
+          await message.channel.send(f"**TODO items**\n**================**\n{todoItems}")
+        else:
+          await message.channel.send("**No TODO items**")
 
     #
     # IF MESSAGE STARTS WITH : TODOREMOVE
